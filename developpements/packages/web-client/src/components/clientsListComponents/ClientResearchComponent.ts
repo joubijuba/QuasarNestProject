@@ -2,6 +2,9 @@ import {
   CodeLabelResultDto,
   CustomerSearchResultDto,
   SearchCustomerDto,
+  mandatoryValidator,
+  textValidatorToFixed2,
+  textValidatorToFixed3,
 } from '@formation/shared-lib';
 import { date } from 'quasar';
 import { defineComponent, onBeforeMount, reactive, ref } from 'vue';
@@ -11,19 +14,20 @@ import formatDate = date.formatDate;
 export default defineComponent({
   name: 'ClientResearchComponent',
   setup() {
-    let allFichierPartenaires: CodeLabelResultDto[] = [];
+    const allFichierPartenaires = ref<string[]>([]);
+    const formChanged = ref(false)
 
     onBeforeMount(async () => {
       const wd = await refsApiService.getAllFichierPartenaires();
       if (wd.isOk && !!wd.data) {
-        allFichierPartenaires = wd.data;
+        allFichierPartenaires.value = wd.data.map((item) => item.label);
       } else {
-        allFichierPartenaires = [];
+        return;
       }
     });
 
-    // Define the initial state of the form
-    const researchForm: SearchCustomerDto = {
+    /// Initial form of the form in order to reset it properly
+    const initialForm  = {
       codeFichierPartenaire: '',
       chronoClient: '',
       nom: '',
@@ -32,7 +36,55 @@ export default defineComponent({
       ville: '',
       dateDerniereCommandeFrom: undefined,
       dateDerniereCommandeTo: undefined,
-    };
+    }
+
+    const researchForm = ref<SearchCustomerDto>({
+      codeFichierPartenaire: '',
+      chronoClient: '',
+      nom: '',
+      prenom: '',
+      codePostal: '',
+      ville: '',
+      dateDerniereCommandeFrom: undefined,
+      dateDerniereCommandeTo: undefined,
+    });
+
+    /// Needed in order to check if the form is ok for submission
+    // or not
+    function isFormChanged() {
+      const form = researchForm.value;
+      /// Need to use the charabia below to loop over an object
+      let k: keyof typeof form
+      for (k in form) {
+        if (form[k]) {
+          formChanged.value = true
+          return 
+        }
+      }
+      formChanged.value = false
+    }
+
+    const resetForm = () => {
+      Object.assign(researchForm.value, initialForm)
+      isFormChanged()
+    }
+
+    function filterFichPart(val: string, update: any) {
+      if (val === '') {
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+        update(() => {
+          allFichierPartenaires.value = allFichierPartenaires.value;
+        });
+        return;
+      }
+      // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+      update(() => {
+        const needle = val.toLowerCase();
+        allFichierPartenaires.value = allFichierPartenaires.value.filter(
+          (v) => v.toLowerCase().indexOf(needle) > -1,
+        );
+      });
+    }
 
     const columns = [
       {
@@ -95,7 +147,14 @@ export default defineComponent({
     return {
       columns,
       researchForm,
-      allFichierPartenaires
+      allFichierPartenaires,
+      mandatoryValidator,
+      filterFichPart,
+      textValidatorToFixed3,
+      textValidatorToFixed2,
+      isFormChanged,
+      resetForm,
+      formChanged
     };
   },
 });

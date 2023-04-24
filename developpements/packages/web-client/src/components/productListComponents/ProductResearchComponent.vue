@@ -1,7 +1,7 @@
 <template>
   <div class="q-pa-sm q-pa-md-md">
     <h4>Reaseach some products</h4>
-    <q-form @submit.prevent="researchHandler">
+    <q-form @submit.prevent="researchHandler" @reset="resetForm">
       <div class="q-pa-md">
         <div class="row q-col-gutter-xs q-col-gutter-md-md">
           <q-input
@@ -62,6 +62,11 @@ export default defineComponent({
 			this.productsList = wd.data!
 			this.$emit("onTransferList", this.productsList)
     },
+    resetForm(){
+      this.labelLike = ''
+      this.productsList = []
+      this.codeStartsWith = ''
+    }
   },
   setup() {
     let labelLike = ref('');
