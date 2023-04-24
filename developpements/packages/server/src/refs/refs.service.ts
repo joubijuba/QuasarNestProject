@@ -9,6 +9,7 @@ import {
   WorkDone,
   SearchProductDto,
   ProductDto,
+  OffreDto
 } from '@formation/shared-lib';
 import { Injectable } from '@nestjs/common';
 
@@ -130,6 +131,18 @@ export class RefsService {
     //return WorkDone.buildOk(product);
   }
 
+  async getOffres(codeProduit : string) : Promise<WorkDone<OffreDto[]>> {
+    const offres = await this.prismaService.offre.findMany({
+      where : {
+        codeProduit: codeProduit
+      }
+    })
+    if (!offres) {
+      return WorkDone.buildError("something went wrong")
+    }
+    return WorkDone.buildOk(offres)
+  }
+
   async getProduits(
     filters: SearchProductDto,
   ): Promise<WorkDone<ProductDto[]>> {
@@ -150,6 +163,9 @@ export class RefsService {
             mode: 'insensitive',
           },
         },
+        include : {
+          offres : true
+        },
         orderBy: {
           code: 'asc',
         },
@@ -160,6 +176,7 @@ export class RefsService {
           'une erreur est survenue durant la recup des produits',
         );
       }
+      this.logger.info(dbProducts)
       return WorkDone.buildOk(dbProducts);
     } catch (e) {
       /// BAD :

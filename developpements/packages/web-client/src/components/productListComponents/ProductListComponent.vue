@@ -23,7 +23,6 @@ import { refsApiService } from '../../../src/boot/api';
 import { defineComponent, onBeforeMount, ref } from 'vue';
 import ProductResearchComponent from '../productListComponents/ProductResearchComponent.vue';
 import ProductAddComponent from "../productListComponents/ProductAddComponent.vue"
-import { watch } from 'fs';
 
 export default defineComponent({
   name: 'ProductListComponent',
@@ -87,6 +86,15 @@ export default defineComponent({
         label: 'Commentaire',
         align: 'left',
         field: (row: any): any => row.commentaire,
+        format: (val: string) => `${val}`,
+        sortable: true,
+      },
+      {
+        name: 'nbOffres',
+        required: true,
+        label: 'Nb offres',
+        align: 'left',
+        field: (row: any): any => row.offres.length,
         format: (val: string) => `${val}`,
         sortable: true,
       },

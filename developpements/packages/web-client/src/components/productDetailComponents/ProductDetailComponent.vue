@@ -38,7 +38,7 @@
         </q-td>
       </template>
     </q-table>
-    <q-btn @click="goBack"> Return </q-btn>
+    <q-btn color="blue" icon="directions" @click="goBack"> Return </q-btn>
   </div>
 </template>
 

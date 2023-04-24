@@ -46,11 +46,19 @@ export interface SearchProductDto {
 export interface ProductDto {
   code : string,
   libelle : string,
-  commentaire : string
+  commentaire : string,
+  offres? : OffreDto[]
 }
 
 export interface UpdateProductDto {
   code : any,
   oldLibelle : any,
   newLibelle : string
+}
+
+export interface OffreDto {
+  code : string,
+  libelle : string,
+  codeProduit : string,
+  dateDerniereCommande? : string
 }
