@@ -83,7 +83,8 @@ exports.Prisma.PartenaireScalarFieldEnum = makeEnum({
 
 exports.Prisma.ProduitScalarFieldEnum = makeEnum({
   code: 'code',
-  libelle: 'libelle'
+  libelle: 'libelle',
+  commentaire: 'commentaire'
 });
 
 exports.Prisma.OffreScalarFieldEnum = makeEnum({

@@ -96,7 +96,7 @@ export default defineComponent({
         required: true,
         label: 'Code',
         align: 'center',
-        field: (row: ProductDto) => row.code,
+        field: (row: any) : any => row.code,
         format: (val: string) => `${val}`,
         sortable: true
       },
@@ -105,7 +105,7 @@ export default defineComponent({
         required: true,
         label: 'Libellé',
         align: 'left',
-        field: (row: ProductDto) => row.libelle,
+        field: (row: any) : any => row.libelle,
         format: (val: string) => `${val}`,
         sortable: true
       }

@@ -1,5 +1,8 @@
 <template>
     <q-page class=" items-center justify-evenly">
+      <ProductSearchComponent
+        active 
+        title = "Recherche de produits"/>
     </q-page>
 </template>
 
@@ -9,6 +12,6 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'ProductPage',
-  components: { }
+  components: { ProductSearchComponent }
 })
 </script>

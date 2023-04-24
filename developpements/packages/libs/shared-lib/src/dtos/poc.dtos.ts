@@ -36,3 +36,21 @@ export interface OffreReferenceResultDto {
   dateDerniereModification: Date
   libelleOffre: string,
 }
+
+export interface SearchProductDto {
+  labelLike : string,
+  codeStartsWith? : string,
+  numOfItems? : string
+}
+
+export interface ProductDto {
+  code : string,
+  libelle : string,
+  commentaire : string
+}
+
+export interface UpdateProductDto {
+  code : any,
+  oldLibelle : any,
+  newLibelle : string
+}

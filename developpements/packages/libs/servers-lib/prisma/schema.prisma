@@ -24,6 +24,7 @@ model Produit {
 
     code String @db.VarChar @id
     libelle String @db.VarChar
+    commentaire String @db.VarChar
 
     offres Offre[] @relation("offre_produits")
 

@@ -28,6 +28,7 @@ export type Partenaire = {
 export type Produit = {
   code: string
   libelle: string
+  commentaire: string
 }
 
 /**
@@ -1645,16 +1646,19 @@ export namespace Prisma {
   export type ProduitMinAggregateOutputType = {
     code: string | null
     libelle: string | null
+    commentaire: string | null
   }
 
   export type ProduitMaxAggregateOutputType = {
     code: string | null
     libelle: string | null
+    commentaire: string | null
   }
 
   export type ProduitCountAggregateOutputType = {
     code: number
     libelle: number
+    commentaire: number
     _all: number
   }
 
@@ -1662,16 +1666,19 @@ export namespace Prisma {
   export type ProduitMinAggregateInputType = {
     code?: true
     libelle?: true
+    commentaire?: true
   }
 
   export type ProduitMaxAggregateInputType = {
     code?: true
     libelle?: true
+    commentaire?: true
   }
 
   export type ProduitCountAggregateInputType = {
     code?: true
     libelle?: true
+    commentaire?: true
     _all?: true
   }
 
@@ -1756,6 +1763,7 @@ export namespace Prisma {
   export type ProduitGroupByOutputType = {
     code: string
     libelle: string
+    commentaire: string
     _count: ProduitCountAggregateOutputType | null
     _min: ProduitMinAggregateOutputType | null
     _max: ProduitMaxAggregateOutputType | null
@@ -1778,6 +1786,7 @@ export namespace Prisma {
   export type ProduitSelect = {
     code?: boolean
     libelle?: boolean
+    commentaire?: boolean
     offres?: boolean | OffreFindManyArgs
     _count?: boolean | ProduitCountOutputTypeArgs
   }
@@ -3348,7 +3357,8 @@ export namespace Prisma {
 
   export const ProduitScalarFieldEnum: {
     code: 'code',
-    libelle: 'libelle'
+    libelle: 'libelle',
+    commentaire: 'commentaire'
   };
 
   export type ProduitScalarFieldEnum = (typeof ProduitScalarFieldEnum)[keyof typeof ProduitScalarFieldEnum]
@@ -3424,12 +3434,14 @@ export namespace Prisma {
     NOT?: Enumerable<ProduitWhereInput>
     code?: StringFilter | string
     libelle?: StringFilter | string
+    commentaire?: StringFilter | string
     offres?: OffreListRelationFilter
   }
 
   export type ProduitOrderByWithRelationInput = {
     code?: SortOrder
     libelle?: SortOrder
+    commentaire?: SortOrder
     offres?: OffreOrderByRelationAggregateInput
   }
 
@@ -3440,6 +3452,7 @@ export namespace Prisma {
   export type ProduitOrderByWithAggregationInput = {
     code?: SortOrder
     libelle?: SortOrder
+    commentaire?: SortOrder
     _count?: ProduitCountOrderByAggregateInput
     _max?: ProduitMaxOrderByAggregateInput
     _min?: ProduitMinOrderByAggregateInput
@@ -3451,6 +3464,7 @@ export namespace Prisma {
     NOT?: Enumerable<ProduitScalarWhereWithAggregatesInput>
     code?: StringWithAggregatesFilter | string
     libelle?: StringWithAggregatesFilter | string
+    commentaire?: StringWithAggregatesFilter | string
   }
 
   export type OffreWhereInput = {
@@ -3534,40 +3548,47 @@ export namespace Prisma {
   export type ProduitCreateInput = {
     code: string
     libelle: string
+    commentaire: string
     offres?: OffreCreateNestedManyWithoutProduitInput
   }
 
   export type ProduitUncheckedCreateInput = {
     code: string
     libelle: string
+    commentaire: string
     offres?: OffreUncheckedCreateNestedManyWithoutProduitInput
   }
 
   export type ProduitUpdateInput = {
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    commentaire?: StringFieldUpdateOperationsInput | string
     offres?: OffreUpdateManyWithoutProduitInput
   }
 
   export type ProduitUncheckedUpdateInput = {
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    commentaire?: StringFieldUpdateOperationsInput | string
     offres?: OffreUncheckedUpdateManyWithoutProduitInput
   }
 
   export type ProduitCreateManyInput = {
     code: string
     libelle: string
+    commentaire: string
   }
 
   export type ProduitUpdateManyMutationInput = {
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    commentaire?: StringFieldUpdateOperationsInput | string
   }
 
   export type ProduitUncheckedUpdateManyInput = {
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    commentaire?: StringFieldUpdateOperationsInput | string
   }
 
   export type OffreCreateInput = {
@@ -3679,16 +3700,19 @@ export namespace Prisma {
   export type ProduitCountOrderByAggregateInput = {
     code?: SortOrder
     libelle?: SortOrder
+    commentaire?: SortOrder
   }
 
   export type ProduitMaxOrderByAggregateInput = {
     code?: SortOrder
     libelle?: SortOrder
+    commentaire?: SortOrder
   }
 
   export type ProduitMinOrderByAggregateInput = {
     code?: SortOrder
     libelle?: SortOrder
+    commentaire?: SortOrder
   }
 
   export type ProduitRelationFilter = {
@@ -3935,11 +3959,13 @@ export namespace Prisma {
   export type ProduitCreateWithoutOffresInput = {
     code: string
     libelle: string
+    commentaire: string
   }
 
   export type ProduitUncheckedCreateWithoutOffresInput = {
     code: string
     libelle: string
+    commentaire: string
   }
 
   export type ProduitCreateOrConnectWithoutOffresInput = {
@@ -3955,11 +3981,13 @@ export namespace Prisma {
   export type ProduitUpdateWithoutOffresInput = {
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    commentaire?: StringFieldUpdateOperationsInput | string
   }
 
   export type ProduitUncheckedUpdateWithoutOffresInput = {
     code?: StringFieldUpdateOperationsInput | string
     libelle?: StringFieldUpdateOperationsInput | string
+    commentaire?: StringFieldUpdateOperationsInput | string
   }
 
   export type OffreCreateManyProduitInput = {

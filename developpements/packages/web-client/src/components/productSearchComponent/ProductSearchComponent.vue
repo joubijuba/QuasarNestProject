@@ -12,7 +12,6 @@
                      class="col-12 col-md-4"
                      hint="Contient (min: 3)"
                      label="Libellé"
-                     stack-label
                      @update:model-value="doOnFormChanged"
             />
           </div>
