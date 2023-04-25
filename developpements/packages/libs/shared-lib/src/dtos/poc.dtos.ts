@@ -8,20 +8,22 @@ export interface SearchCustomerDto {
   codeFichierPartenaire: string,
   codePostal?: string,
   dateDerniereCommandeFrom?: Date,
-  dateDerniereCommandeTo?: Date
+  dateDerniereCommandeTo?: Date,
   nom?: string,
   prenom?: string,
   ville?: string,
+  actif?: boolean | null
 }
 
 export interface CustomerSearchResultDto {
   chronoClient: string,
   codeFichierPartenaire: string,
   codePostal: string,
-  dateDerniereCommande: Date
+  dateDerniereCommande?: Date, /// had to add '?' to this one
   nom: string,
   prenom: string,
   ville: string,
+  actif: boolean | null
 }
 
 export interface CodeLabelResultDto {

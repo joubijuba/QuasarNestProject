@@ -1,12 +1,17 @@
 <template>
-  <div>
+  <div class="row justify-end" id="btn-div">
+    <q-btn color = "primary" :icon="icon" @click="toggle">
+      {{ toggled ? 'Hide' : 'Add a client' }}
+    </q-btn>
+  </div>
+  <div v-if="toggled">
     <div class="q-pa-sm q-pa-md-md">
-      <h4>Research clients</h4>
-      <q-form @submit="researchHandler" @reset="resetForm">
+      <h4>Add a client</h4>
+      <q-form @submit="addHandler" @reset="resetForm">
         <div class="q-pa-md">
           <div class="row q-col-gutter-xs q-col-gutter-md-md">
             <q-select
-              v-model="researchForm.codeFichierPartenaire"
+              v-model="addForm.codeFichierPartenaire"
               :lazy-rules="true"
               :options="formOptions"
               :rules="[mandatoryValidator]"
@@ -31,7 +36,7 @@
               </template>
             </q-select>
             <q-input
-              v-model="researchForm.chronoClient"
+              v-model="addForm.chronoClient"
               class="col-12 col-md-2"
               hint="Format: 99999999"
               label="N° de client"
@@ -40,21 +45,21 @@
               @update:model-value="isFormChanged"
             />
             <q-input
-              v-model="researchForm.nom"
+              v-model="addForm.nom"
               :lazy-rules="true"
               :rules="[textValidatorToFixed3]"
               class="col-12 col-md-4"
-              hint="(min: 3)"
+              hint="Commence par (min: 3)"
               label="Nom"
               stack-label
               @update:model-value="isFormChanged"
             />
             <q-input
-              v-model="researchForm.codePostal"
+              v-model="addForm.codePostal"
               :lazy-rules="true"
               :rules="[textValidatorToFixed2]"
               class="col-12 col-md-2"
-              hint="(min: 2) - Format: 99999"
+              hint="Commence par (min: 2) - Format: 99999"
               label="Code postal"
               mask="#####"
               stack-label
@@ -74,45 +79,29 @@
                 <q-card-section>
                   <div class="row q-col-gutter-xs q-col-gutter-md-md">
                     <q-input
-                      v-model="researchForm.prenom"
+                      v-model="addForm.prenom"
                       :lazy-rules="true"
                       :rules="[textValidatorToFixed3]"
-                      class="col-12 col-md-2"
-                      hint="(min: 3)"
+                      class="col-12 col-md-3"
+                      hint="Commence par (min: 3)"
                       label="Prénom"
                       stack-label
                       @update:model-value="isFormChanged"
                     />
                     <q-input
-                      v-model="researchForm.ville"
+                      v-model="addForm.ville"
                       :lazy-rules="true"
                       :rules="[textValidatorToFixed3]"
-                      class="col-12 col-md-2"
-                      hint="(min: 3)"
+                      class="col-12 col-md-3"
+                      hint="Commence par (min: 3)"
                       label="Ville"
                       stack-label
                       @update:model-value="isFormChanged"
                     />
-                    <q-select
-                      v-model="researchForm.actif"
-                      :lazy-rules="true"
-                      :options="['Y', 'N']"
-                      class="col-12 col-md-2"
-                      emit-value
-                      hint="Y or N"
-                      input-debounce="0"
-                      label="Actif"
-                      map-options
-                      option-value="code"
-                      stack-label
-                      use-input
-                      @update:model-value="isFormChanged"
-                    />
                     <q-input
-                      v-model="researchForm.dateDerniereCommandeFrom"
+                      v-model="addForm.dateDerniereCommande"
                       class="col-6 col-md-3"
-                      hint="Date comprise"
-                      label="Dernière commande après le"
+                      label="Date dernière commande"
                       stack-label
                       @update:model-value="isFormChanged"
                     >
@@ -129,44 +118,7 @@
                             transition-show="scale"
                           >
                             <q-date
-                              v-model="researchForm.dateDerniereCommandeFrom"
-                              mask="DD/MM/YYYY"
-                            >
-                              <div class="row items-center justify-end">
-                                <q-btn
-                                  v-close-popup
-                                  color="primary"
-                                  flat
-                                  label="Fermer"
-                                />
-                              </div>
-                            </q-date>
-                          </q-popup-proxy>
-                        </q-icon>
-                      </template>
-                    </q-input>
-                    <q-input
-                      v-model="researchForm.dateDerniereCommandeTo"
-                      class="col-6 col-md-3"
-                      hint="Date comprise"
-                      label="Dernière commande avant le"
-                      stack-label
-                      @update:model-value="isFormChanged"
-                    >
-                      <template v-slot:prepend>
-                        <q-icon
-                          class="cursor-pointer"
-                          color="primary"
-                          name="event"
-                        >
-                          <q-popup-proxy
-                            ref="qDateProxy"
-                            cover
-                            transition-hide="scale"
-                            transition-show="scale"
-                          >
-                            <q-date
-                              v-model="researchForm.dateDerniereCommandeTo"
+                              v-model="addForm.dateDerniereCommande"
                               mask="DD/MM/YYYY"
                             >
                               <div class="row items-center justify-end">
@@ -190,10 +142,10 @@
 
           <div class="row justify-end">
             <q-btn
-              :disable="!formChanged || !researchForm.codeFichierPartenaire"
+              :disable="!formChanged || !addForm.codeFichierPartenaire"
               color="primary"
-              icon="fa fa-search"
-              label="Rechercher"
+              icon="add"
+              label="Add"
               type="submit"
             />
             <q-btn
@@ -210,4 +162,5 @@
   </div>
 </template>
 
-<script lang="ts" src="./ClientResearchComponent.ts"></script>
+<script lang="ts" src="./AddClientComponent.ts"></script>
+<style lang="scss" src="./AddClientComponent.scss"></style>

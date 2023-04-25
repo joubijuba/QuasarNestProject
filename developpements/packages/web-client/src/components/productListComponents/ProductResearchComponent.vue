@@ -10,7 +10,6 @@
             class="col-12 col-md-4"
             hint="(min: 3 char)"
             label="Libellé"
-            stack-label
           />
 					<q-input
             v-model="codeStartsWith"
@@ -18,7 +17,6 @@
             class="col-12 col-md-4"
             hint="(min: 0 char)"
             label="code starts with"
-            stack-label
           />
         </div>
 

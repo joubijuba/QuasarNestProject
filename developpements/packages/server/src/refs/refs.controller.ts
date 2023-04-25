@@ -99,7 +99,6 @@ export class RefsController extends AbstractController {
   async addProduct(
     @Body() product : ProductDto
   ): Promise<WorkDone<Boolean>> {
-    this.logger.info(product)
     return this.refsService.addProduct(product)
   }
 }

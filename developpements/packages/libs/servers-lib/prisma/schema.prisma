@@ -17,6 +17,7 @@ model Partenaire {
     code  String @db.VarChar @id
     libelle String @db.VarChar
 
+    clients Client[] @relation("client_partenaires")
     @@map(name: "ref_partenaires")
 }
 
@@ -27,7 +28,6 @@ model Produit {
     commentaire String @db.VarChar
 
     offres Offre[] @relation("offre_produits")
-
     @@map(name: "ref_produits")
 }
 
@@ -43,4 +43,21 @@ model Offre {
 
     @@map(name: "ref_offres")
     @@index(codeProduit)
+}
+
+model Client {
+    chronoClient String @db.VarChar @id @map(name : "chrono_client")
+
+    codeFichierPartenaire String @db.VarChar @map(name: "code_fichier_partenaire")
+    partenaire Partenaire @relation("client_partenaires", fields: [codeFichierPartenaire], references: [code], onDelete: Cascade, onUpdate: Restrict)
+
+    codePostal String @db.VarChar @map(name : "code_postal")
+    dateDerniereCommande DateTime? @db.Timestamptz(0) @map(name: "date_derniere_commande")
+    nom String @db.VarChar 
+    prenom String @db.VarChar 
+    ville String @db.VarChar 
+    actif Boolean @db.Boolean
+    
+    @@map(name: "ref_clients")
+    @@index(codeFichierPartenaire)
 }
