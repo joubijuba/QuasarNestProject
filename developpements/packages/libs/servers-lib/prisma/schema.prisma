@@ -52,7 +52,7 @@ model Client {
     partenaire Partenaire @relation("client_partenaires", fields: [codeFichierPartenaire], references: [code], onDelete: Cascade, onUpdate: Restrict)
 
     codePostal String @db.VarChar @map(name : "code_postal")
-    dateDerniereCommande DateTime? @db.Timestamptz(0) @map(name: "date_derniere_commande")
+    dateDerniereCommande DateTime? @db.Date @map(name : "date_derniere_commande")
     nom String @db.VarChar 
     prenom String @db.VarChar 
     ville String @db.VarChar 

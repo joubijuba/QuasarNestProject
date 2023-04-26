@@ -15,13 +15,13 @@ export default defineComponent({
   methods: {
     async researchHandler() {
       const filters = this.researchForm;
+      console.log(filters.dateDerniereCommandeFrom)
       const wd = await customersApiService.getClientsList(filters);
       if (!wd.isOk) {
         alert('something went wrong');
       }
       this.clientsList = wd.data!;
       this.$emit('onTransferList', this.clientsList);
-     console.log(filters)
     },
   },
   setup() {

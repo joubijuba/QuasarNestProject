@@ -11,7 +11,10 @@
       title="Liste des clients"
     >
       <template v-slot:body="props">
-        <q-tr :props="props" :class="props.row.actif === 'Oui' ? 'actif' : 'inactif'">
+        <q-tr
+          :props="props"
+          :class="props.row.actif === 'Oui' ? 'actif' : 'inactif'"
+        >
           <q-td key="chronoClient" :props="props">
             {{ props.row.chronoClient }}
           </q-td>

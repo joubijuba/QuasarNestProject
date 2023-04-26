@@ -32,6 +32,12 @@ export class CustomersService {
     this.logger.info('CustomersService created');
   }
 
+  /// From JS date (DD/MM/YYYY) to timpestamptz(0) format
+  dateConverter(date: Date) : Date{
+    const [day, month, year] = date.toString().split("/")
+    return new Date(`${year}-${month}-${day}T00:00:00.000Z`)
+  }
+
   async getClientsList(
     searchCriterias: SearchCustomerDto,
   ): Promise<WorkDone<CustomerSearchResultDto[]>> {
@@ -40,31 +46,30 @@ export class CustomersService {
       // filter out the empty inputs. If we don't, the request
       // will be most likely unsuccessful as it will use empty strings
       // as 'mandatory' filters (where : name : '' will give nothing)
-      this.logger.info(searchCriterias)
       const where = {};
       let key: keyof typeof searchCriterias;
       for (key in searchCriterias) {
         if (searchCriterias[key]) {
           if (key === 'dateDerniereCommandeFrom') {
             where['dateDerniereCommande'] = {
-              gtn: searchCriterias[key],
+              gte: this.dateConverter(searchCriterias[key]),
             };
           } else if (key === 'dateDerniereCommandeTo') {
             where['dateDerniereCommande'] = {
               ...where['dateDerniereCommande'],
-              ltn: searchCriterias[key]
+              lte: this.dateConverter(searchCriterias[key]),
             };
-          }
-          else {
+          } else {
             where[key] = searchCriterias[key];
           }
         }
       }
+      this.logger.info(where)
       const clientsList = await this.prismaService.client.findMany({
         where: where,
       });
-      if (!clientsList){
-        return WorkDone.buildError("Get request failed")
+      if (!clientsList) {
+        return WorkDone.buildError('Get request failed');
       }
       return WorkDone.buildOk(clientsList);
     } catch (e) {
@@ -72,36 +77,40 @@ export class CustomersService {
     }
   }
 
-  async addClient(addForm: CustomerSearchResultDto): Promise<WorkDone<boolean>> {
+  async addClient(
+    addForm: CustomerSearchResultDto,
+  ): Promise<WorkDone<boolean>> {
     try {
       const addRequest = await this.prismaService.client.create({
-        data : addForm
-      })
-      if (!addRequest){
-        return WorkDone.buildError("Add request failed, probably a wrong input")
+        data: addForm,
+      });
+      if (!addRequest) {
+        return WorkDone.buildError(
+          'Add request failed, probably a wrong input',
+        );
       }
-      return WorkDone.buildOk(true)
-    }
-    catch (e) {
-      return WorkDone.buildError(JSON.stringify(e))
+      return WorkDone.buildOk(true);
+    } catch (e) {
+      return WorkDone.buildError(JSON.stringify(e));
     }
   }
 
-  async deleteClient(chronoClient : string): Promise<WorkDone<boolean>> {
-    this.logger.info(chronoClient[0])
+  async deleteClient(chronoClient: string): Promise<WorkDone<boolean>> {
+    this.logger.info(chronoClient[0]);
     try {
       const deleteRequest = await this.prismaService.client.delete({
-        where : {
-          chronoClient : chronoClient[0].toString()
-        }
-      })
-      if (!deleteRequest){
-        return WorkDone.buildError("Delete request failed, this product probably doesn't exist yet")
+        where: {
+          chronoClient: chronoClient[0].toString(),
+        },
+      });
+      if (!deleteRequest) {
+        return WorkDone.buildError(
+          "Delete request failed, this product probably doesn't exist yet",
+        );
       }
-      return WorkDone.buildOk(true)
-    }
-    catch (e){
-      return WorkDone.buildError(JSON.stringify(e))
+      return WorkDone.buildOk(true);
+    } catch (e) {
+      return WorkDone.buildError(JSON.stringify(e));
     }
   }
 }

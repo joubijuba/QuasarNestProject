@@ -176,7 +176,6 @@ export class RefsService {
           'une erreur est survenue durant la recup des produits',
         );
       }
-      this.logger.info(dbProducts)
       return WorkDone.buildOk(dbProducts);
     } catch (e) {
       /// BAD :
