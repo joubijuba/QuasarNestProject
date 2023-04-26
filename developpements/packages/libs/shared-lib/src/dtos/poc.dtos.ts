@@ -12,7 +12,7 @@ export interface SearchCustomerDto {
   nom?: string,
   prenom?: string,
   ville?: string,
-  actif?: boolean | null
+  actif?: string
 }
 
 export interface CustomerSearchResultDto {
@@ -23,7 +23,7 @@ export interface CustomerSearchResultDto {
   nom: string,
   prenom: string,
   ville: string,
-  actif: boolean | null
+  actif: string
 }
 
 export interface CodeLabelResultDto {

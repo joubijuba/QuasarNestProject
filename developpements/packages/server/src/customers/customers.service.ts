@@ -40,6 +40,7 @@ export class CustomersService {
       // filter out the empty inputs. If we don't, the request
       // will be most likely unsuccessful as it will use empty strings
       // as 'mandatory' filters (where : name : '' will give nothing)
+      this.logger.info(searchCriterias)
       const where = {};
       let key: keyof typeof searchCriterias;
       for (key in searchCriterias) {
@@ -53,7 +54,8 @@ export class CustomersService {
               ...where['dateDerniereCommande'],
               ltn: searchCriterias[key]
             };
-          } else {
+          }
+          else {
             where[key] = searchCriterias[key];
           }
         }

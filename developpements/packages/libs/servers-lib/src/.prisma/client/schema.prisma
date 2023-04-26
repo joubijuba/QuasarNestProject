@@ -56,7 +56,7 @@ model Client {
     nom String @db.VarChar 
     prenom String @db.VarChar 
     ville String @db.VarChar 
-    actif Boolean @db.Boolean
+    actif String @db.VarChar
     
     @@map(name: "ref_clients")
     @@index(codeFichierPartenaire)

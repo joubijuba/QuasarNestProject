@@ -54,7 +54,7 @@ export type Client = {
   nom: string
   prenom: string
   ville: string
-  actif: boolean
+  actif: string
 }
 
 
@@ -3487,7 +3487,7 @@ export namespace Prisma {
     nom: string | null
     prenom: string | null
     ville: string | null
-    actif: boolean | null
+    actif: string | null
   }
 
   export type ClientMaxAggregateOutputType = {
@@ -3498,7 +3498,7 @@ export namespace Prisma {
     nom: string | null
     prenom: string | null
     ville: string | null
-    actif: boolean | null
+    actif: string | null
   }
 
   export type ClientCountAggregateOutputType = {
@@ -3634,7 +3634,7 @@ export namespace Prisma {
     nom: string
     prenom: string
     ville: string
-    actif: boolean
+    actif: string
     _count: ClientCountAggregateOutputType | null
     _min: ClientMinAggregateOutputType | null
     _max: ClientMaxAggregateOutputType | null
@@ -4554,7 +4554,7 @@ export namespace Prisma {
     nom?: StringFilter | string
     prenom?: StringFilter | string
     ville?: StringFilter | string
-    actif?: BoolFilter | boolean
+    actif?: StringFilter | string
   }
 
   export type ClientOrderByWithRelationInput = {
@@ -4598,7 +4598,7 @@ export namespace Prisma {
     nom?: StringWithAggregatesFilter | string
     prenom?: StringWithAggregatesFilter | string
     ville?: StringWithAggregatesFilter | string
-    actif?: BoolWithAggregatesFilter | boolean
+    actif?: StringWithAggregatesFilter | string
   }
 
   export type PartenaireCreateInput = {
@@ -4742,7 +4742,7 @@ export namespace Prisma {
     nom: string
     prenom: string
     ville: string
-    actif: boolean
+    actif: string
   }
 
   export type ClientUncheckedCreateInput = {
@@ -4753,7 +4753,7 @@ export namespace Prisma {
     nom: string
     prenom: string
     ville: string
-    actif: boolean
+    actif: string
   }
 
   export type ClientUpdateInput = {
@@ -4764,7 +4764,7 @@ export namespace Prisma {
     nom?: StringFieldUpdateOperationsInput | string
     prenom?: StringFieldUpdateOperationsInput | string
     ville?: StringFieldUpdateOperationsInput | string
-    actif?: BoolFieldUpdateOperationsInput | boolean
+    actif?: StringFieldUpdateOperationsInput | string
   }
 
   export type ClientUncheckedUpdateInput = {
@@ -4775,7 +4775,7 @@ export namespace Prisma {
     nom?: StringFieldUpdateOperationsInput | string
     prenom?: StringFieldUpdateOperationsInput | string
     ville?: StringFieldUpdateOperationsInput | string
-    actif?: BoolFieldUpdateOperationsInput | boolean
+    actif?: StringFieldUpdateOperationsInput | string
   }
 
   export type ClientCreateManyInput = {
@@ -4786,7 +4786,7 @@ export namespace Prisma {
     nom: string
     prenom: string
     ville: string
-    actif: boolean
+    actif: string
   }
 
   export type ClientUpdateManyMutationInput = {
@@ -4796,7 +4796,7 @@ export namespace Prisma {
     nom?: StringFieldUpdateOperationsInput | string
     prenom?: StringFieldUpdateOperationsInput | string
     ville?: StringFieldUpdateOperationsInput | string
-    actif?: BoolFieldUpdateOperationsInput | boolean
+    actif?: StringFieldUpdateOperationsInput | string
   }
 
   export type ClientUncheckedUpdateManyInput = {
@@ -4807,7 +4807,7 @@ export namespace Prisma {
     nom?: StringFieldUpdateOperationsInput | string
     prenom?: StringFieldUpdateOperationsInput | string
     ville?: StringFieldUpdateOperationsInput | string
-    actif?: BoolFieldUpdateOperationsInput | boolean
+    actif?: StringFieldUpdateOperationsInput | string
   }
 
   export type StringFilter = {
@@ -4952,11 +4952,6 @@ export namespace Prisma {
     isNot?: PartenaireWhereInput
   }
 
-  export type BoolFilter = {
-    equals?: boolean
-    not?: NestedBoolFilter | boolean
-  }
-
   export type ClientCountOrderByAggregateInput = {
     chronoClient?: SortOrder
     codeFichierPartenaire?: SortOrder
@@ -4988,14 +4983,6 @@ export namespace Prisma {
     prenom?: SortOrder
     ville?: SortOrder
     actif?: SortOrder
-  }
-
-  export type BoolWithAggregatesFilter = {
-    equals?: boolean
-    not?: NestedBoolWithAggregatesFilter | boolean
-    _count?: NestedIntFilter
-    _min?: NestedBoolFilter
-    _max?: NestedBoolFilter
   }
 
   export type ClientCreateNestedManyWithoutPartenaireInput = {
@@ -5118,10 +5105,6 @@ export namespace Prisma {
     update?: XOR<PartenaireUpdateWithoutClientsInput, PartenaireUncheckedUpdateWithoutClientsInput>
   }
 
-  export type BoolFieldUpdateOperationsInput = {
-    set?: boolean
-  }
-
   export type NestedStringFilter = {
     equals?: string
     in?: Enumerable<string>
@@ -5200,19 +5183,6 @@ export namespace Prisma {
     not?: NestedIntNullableFilter | number | null
   }
 
-  export type NestedBoolFilter = {
-    equals?: boolean
-    not?: NestedBoolFilter | boolean
-  }
-
-  export type NestedBoolWithAggregatesFilter = {
-    equals?: boolean
-    not?: NestedBoolWithAggregatesFilter | boolean
-    _count?: NestedIntFilter
-    _min?: NestedBoolFilter
-    _max?: NestedBoolFilter
-  }
-
   export type ClientCreateWithoutPartenaireInput = {
     chronoClient: string
     codePostal: string
@@ -5220,7 +5190,7 @@ export namespace Prisma {
     nom: string
     prenom: string
     ville: string
-    actif: boolean
+    actif: string
   }
 
   export type ClientUncheckedCreateWithoutPartenaireInput = {
@@ -5230,7 +5200,7 @@ export namespace Prisma {
     nom: string
     prenom: string
     ville: string
-    actif: boolean
+    actif: string
   }
 
   export type ClientCreateOrConnectWithoutPartenaireInput = {
@@ -5270,7 +5240,7 @@ export namespace Prisma {
     nom?: StringFilter | string
     prenom?: StringFilter | string
     ville?: StringFilter | string
-    actif?: BoolFilter | boolean
+    actif?: StringFilter | string
   }
 
   export type OffreCreateWithoutProduitInput = {
@@ -5392,7 +5362,7 @@ export namespace Prisma {
     nom: string
     prenom: string
     ville: string
-    actif: boolean
+    actif: string
   }
 
   export type ClientUpdateWithoutPartenaireInput = {
@@ -5402,7 +5372,7 @@ export namespace Prisma {
     nom?: StringFieldUpdateOperationsInput | string
     prenom?: StringFieldUpdateOperationsInput | string
     ville?: StringFieldUpdateOperationsInput | string
-    actif?: BoolFieldUpdateOperationsInput | boolean
+    actif?: StringFieldUpdateOperationsInput | string
   }
 
   export type ClientUncheckedUpdateWithoutPartenaireInput = {
@@ -5412,7 +5382,7 @@ export namespace Prisma {
     nom?: StringFieldUpdateOperationsInput | string
     prenom?: StringFieldUpdateOperationsInput | string
     ville?: StringFieldUpdateOperationsInput | string
-    actif?: BoolFieldUpdateOperationsInput | boolean
+    actif?: StringFieldUpdateOperationsInput | string
   }
 
   export type ClientUncheckedUpdateManyWithoutClientsInput = {
@@ -5422,7 +5392,7 @@ export namespace Prisma {
     nom?: StringFieldUpdateOperationsInput | string
     prenom?: StringFieldUpdateOperationsInput | string
     ville?: StringFieldUpdateOperationsInput | string
-    actif?: BoolFieldUpdateOperationsInput | boolean
+    actif?: StringFieldUpdateOperationsInput | string
   }
 
   export type OffreCreateManyProduitInput = {

@@ -96,14 +96,12 @@
                     <q-select
                       v-model="researchForm.actif"
                       :lazy-rules="true"
-                      :options="['Y', 'N']"
+                      :options="['Oui', 'Non']"
                       class="col-12 col-md-2"
                       emit-value
-                      hint="Y or N"
+                      hint="Oui/Non"
                       input-debounce="0"
                       label="Actif"
-                      map-options
-                      option-value="code"
                       stack-label
                       use-input
                       @update:model-value="isFormChanged"

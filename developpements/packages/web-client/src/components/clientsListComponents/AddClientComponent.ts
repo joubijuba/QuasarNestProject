@@ -54,7 +54,7 @@ export default defineComponent({
       codePostal: '',
       ville: '',
       dateDerniereCommande: undefined,
-      actif: null
+      actif: 'string'
     };
 
     const addForm = ref<CustomerSearchResultDto>(initialForm);
