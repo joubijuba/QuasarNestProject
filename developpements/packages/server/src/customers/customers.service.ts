@@ -33,9 +33,9 @@ export class CustomersService {
   }
 
   /// From JS date (DD/MM/YYYY) to timpestamptz(0) format
-  dateConverter(date: Date) : Date{
-    const [day, month, year] = date.toString().split("/")
-    return new Date(`${year}-${month}-${day}T00:00:00.000Z`)
+  dateConverter(date: Date): Date {
+    const [day, month, year] = date.toString().split('/');
+    return new Date(`${year}-${month}-${day}T00:00:00.000Z`);
   }
 
   async getClientsList(
@@ -64,7 +64,6 @@ export class CustomersService {
           }
         }
       }
-      this.logger.info(where)
       const clientsList = await this.prismaService.client.findMany({
         where: where,
       });
@@ -96,7 +95,6 @@ export class CustomersService {
   }
 
   async deleteClient(chronoClient: string): Promise<WorkDone<boolean>> {
-    this.logger.info(chronoClient[0]);
     try {
       const deleteRequest = await this.prismaService.client.delete({
         where: {
@@ -111,6 +109,37 @@ export class CustomersService {
       return WorkDone.buildOk(true);
     } catch (e) {
       return WorkDone.buildError(JSON.stringify(e));
+    }
+  }
+
+  async editClient(
+    editForm: Omit<SearchCustomerDto, 'codeFichierPartenaire'>,
+  ): Promise<WorkDone<CustomerSearchResultDto>> {
+    try {
+      /// First we build the data object in order to get rid 
+      // of the
+      const data = {}
+      let key: keyof typeof editForm
+      for (key in editForm) {
+        if (editForm[key]){
+          if (key !== "chronoClient"){
+            data[key] = editForm[key]
+          }
+        }
+      }
+      const editRequest = await this.prismaService.client.update({
+        where : {
+          chronoClient : editForm.chronoClient
+        },
+        data : data
+      })
+      if (!editRequest){
+        return WorkDone.buildError("something went wrong")
+      } 
+      return WorkDone.buildOk(editRequest)
+    }
+    catch (e) {
+      return WorkDone.buildError(JSON.stringify(e))
     }
   }
 }

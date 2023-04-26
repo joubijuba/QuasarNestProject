@@ -43,4 +43,10 @@ export class CustomersApiService extends AbstractApiService {
   public async deleteClient(chronoClient: string): Promise<WorkDone<boolean>> {
     return this.doDelete('/clientsList', chronoClient);
   }
+
+  public async editClient(
+    editForm: Omit<SearchCustomerDto, 'codeFichierPartenaire'>,
+  ): Promise<WorkDone<CustomerSearchResultDto>> {
+    return this.doPut('/clientsList', editForm);
+  }
 }

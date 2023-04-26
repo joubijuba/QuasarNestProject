@@ -7,7 +7,7 @@ import {
   SearchCustomerDto,
   WorkDone,
 } from '@formation/shared-lib';
-import { Controller, Get, Query, Post, Body, Delete } from '@nestjs/common';
+import { Controller, Get, Query, Post, Body, Delete, Put } from '@nestjs/common';
 import { CustomersService } from './customers.service';
 
 @Controller('customers')
@@ -39,5 +39,12 @@ export class CustomersController extends AbstractController {
     @Query() chronoClient : string
   ): Promise<WorkDone<boolean>> {
     return this.customersService.deleteClient(chronoClient)
+  }
+
+  @Put("/clientsList")
+  async editClient(
+    @Body() editForm : Omit<SearchCustomerDto, 'codeFichierPartenaire'>
+  ): Promise<WorkDone<CustomerSearchResultDto>> {
+    return this.customersService.editClient(editForm)
   }
 }
