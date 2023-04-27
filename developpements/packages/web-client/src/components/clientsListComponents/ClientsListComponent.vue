@@ -32,7 +32,7 @@
             {{ props.row.ville }}
           </q-td>
           <q-td key="dateDerniereCommande" :props="props">
-            {{ props.row.dateDerniereCommande }}
+            {{formatDate(props.row.dateDerniereCommande, 'DD/MM/YYYY')}}
           </q-td>
           <q-td key="ville" :props="props">
             <q-form @submit.prevent="deleteHandler(props.row.chronoClient)">
@@ -40,7 +40,7 @@
             </q-form>
           </q-td>
           <q-td key="ville" :props="props">
-            <q-form @submit.prevent="editHandler(props.row.chronoClient)">
+            <q-form @submit.prevent="editOpener(props.row.chronoClient)">
               <q-btn type="submit" icon="edit" />
             </q-form>
           </q-td>
@@ -48,65 +48,12 @@
       </template>
     </q-table>
     <AddClientComponent />
-    <template>
-      <q-dialog v-model="poppingUp" persistent>
-        <q-card style="min-width: 350px">
-          <q-card-section>
-            <div class="text-h6">Edit client</div>
-          </q-card-section>
-
-          <q-form @submit.prevent="editSubmitter">
-            <q-card-section class="q-pt-none">
-              <q-input
-                v-model="editForm.nom"
-                :rules="[textValidatorToFixed3]"
-                stack-label
-                label="Nom"
-                dense
-                autofocus
-              ></q-input>
-              <q-input
-                v-model="editForm.prenom"
-                :rules="[textValidatorToFixed3]"
-                stack-label
-                label="Prénom"
-                dense
-                autofocus
-              ></q-input>
-              <q-input
-                v-model="editForm.codePostal"
-                :rules="[textValidatorToFixed3]"
-                stack-label
-                label="Code postal"
-                dense
-                autofocus
-              ></q-input>
-              <q-input
-                v-model="editForm.ville"
-                :rules="[textValidatorToFixed3]"
-                stack-label
-                label="Ville"
-                dense
-                autofocus
-              ></q-input>
-              <q-input
-                v-model="editForm.actif"
-                :rules="[textValidatorToFixed3]"
-                stack-label
-                label="Actif"
-                dense
-                autofocus
-              ></q-input>
-            </q-card-section>
-
-            <q-card-actions align="right" class="text-primary">
-              <q-btn flat label="Cancel" v-close-popup></q-btn>
-              <q-btn flat type ="submit" label="Edit" v-close-popup></q-btn>
-            </q-card-actions>
-          </q-form>
-        </q-card>
-      </q-dialog>
-    </template>
+    <ClientEditComponent
+      @onFormSubmit="onFormSubmit"
+      @onPoppingUpToFalse="updatePoppingUp"
+      :chronoClient="chronoClient"
+      :poppingUp="poppingUp"
+    />
   </div>
 </template>
 

@@ -1,6 +1,7 @@
 import ClientResearchComponent from './ClientResearchComponent.vue';
 import { customersApiService } from '../../boot/api';
 import AddClientComponent from './AddClientComponent.vue';
+import ClientEditComponent from './ClientEditComponent.vue';
 import { defineComponent, ref } from 'vue';
 import {
   CustomerSearchResultDto,
@@ -12,7 +13,11 @@ import formatDate = date.formatDate;
 
 export default defineComponent({
   name: 'ClientsListComponent',
-  components: { ClientResearchComponent, AddClientComponent },
+  components: {
+    ClientResearchComponent,
+    AddClientComponent,
+    ClientEditComponent,
+  },
   methods: {
     updateList(clientsList: CustomerSearchResultDto[]) {
       this.clientsList = clientsList;
@@ -24,61 +29,57 @@ export default defineComponent({
       }
       alert('client successfully deleted');
       /// Update the list when the client is deleted from the list
-      // without a web socket. Need to look for w-s implementation
       const updatedList = this.clientsList.filter((client) => {
         return client.chronoClient !== chronoClient;
       });
       this.updateList(updatedList);
     },
-    editHandler(chronoClient: string) {
+    editOpener(chronoClient: string) {
       this.poppingUp = true;
-      this.editForm.chronoClient = chronoClient;
+      this.chronoClient = chronoClient;
     },
-    async editSubmitter() {
-      const editForm = this.editForm;
+    async editSubmitter(
+      form: Omit<SearchCustomerDto, 'codeFichierPartenaire'>,
+    ): Promise<boolean> {
       const clientsList = this.clientsList;
-      const wd = await customersApiService.editClient(this.editForm);
+      const wd = await customersApiService.editClient(form);
       if (!wd.isOk) {
         alert('Something went wrong');
+        return false;
       }
-      alert('Client edited with success');
       /// The part below is just used to update on the front-end
       // the line of the table we just changed.
       // Better to use a w:s.
       for (const client of clientsList) {
-        if (client.chronoClient === editForm.chronoClient) {
-          let key: keyof typeof editForm ;
-          for (key in editForm) {
-            if (editForm[key]) {
-              let keyBis: keyof typeof client
+        if (client.chronoClient === form.chronoClient) {
+          let key: keyof typeof form;
+          for (key in form) {
+            if (form[key]) {
+              let keyBis: keyof typeof client;
               for (keyBis in client) {
-                if (keyBis === key){
+                if (keyBis === key) {
                   /// Need the "!" to avoid type issues
-                  client[keyBis] = editForm[key]!
+                  client[keyBis] = form[key]!;
                 }
               }
             }
           }
         }
       }
-      this.editForm = this.initialEditForm ;
+      alert('Client edited with success');
+      return true;
+    },
+    async onFormSubmit(editForm: Omit<SearchCustomerDto, 'codeFichierPartenaire'>) {
+      await this.editSubmitter(editForm)
+    },
+    updatePoppingUp() {
+      this.poppingUp = false;
     },
   },
   setup() {
     const clientsList = ref<CustomerSearchResultDto[]>([]);
+    const chronoClient = ref('');
     const poppingUp = ref(false);
-    const initialEditForm = {
-      /// This one won't be edited but we need it for the request
-      chronoClient: '',
-      nom: '',
-      prenom: '',
-      codePostal: '',
-      ville: '',
-      actif: '',
-    };
-    /// Need to omit "codeFichierPartenaire"
-    const editForm =
-      ref<Omit<SearchCustomerDto, 'codeFichierPartenaire'>>(initialEditForm);
 
     const columns = [
       {
@@ -141,9 +142,9 @@ export default defineComponent({
       clientsList,
       poppingUp,
       columns,
-      initialEditForm,
-      editForm,
+      chronoClient,
       textValidatorToFixed3,
+      formatDate
     };
   },
 });

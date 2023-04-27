@@ -82,7 +82,7 @@ export default defineComponent({
         // eslint-disable-next-line @typescript-eslint/no-unsafe-call
         update(() => {
           /// Because if we do allFichierPartenaires.value = allFichiersPartenaires.value,
-          // it will empy up the allFichierPartenaires object and then we will
+          // it will empty up the allFichierPartenaires object and then we will
           // have nothing left inside. That's why we need the formOptions object
           // in order to have select options that we can alter
           // for filtering purposes when user is typing inside this field

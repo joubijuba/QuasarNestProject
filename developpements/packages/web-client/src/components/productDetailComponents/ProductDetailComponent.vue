@@ -57,7 +57,7 @@ export default defineComponent({
           /// Need all those keys to display proper column names
           code: this.$route.params.code,
           oldLibelle: this.$route.params.libelle,
-          commentaire : "this product is amazing",
+          commentaire: 'this product is amazing',
           newLibelle: this.newLibelle,
           delete: false,
         },
@@ -66,9 +66,12 @@ export default defineComponent({
   },
   methods: {
     async changeHandler(row: any) {
-      confirm(
+      const popup: any = confirm(
         'you are about to change this article label, please click on confirm before continuing',
       );
+      if (!popup){
+        return ;
+      }
       const product = {
         code: this.product[0].code as string,
         libelle: this.product[0].oldLibelle as string,
@@ -84,9 +87,12 @@ export default defineComponent({
       this.product[0].oldLibelle = this.newLibelle;
     },
     async deleteHandler(row: any) {
-      confirm(
-        'you are about to change this article label, please click on confirm before continuing',
+      const popup: any = confirm(
+        'you are about to delete this article, please click on confirm before continuing',
       );
+      if (!popup){
+        return ;
+      }
       const product = {
         code: this.product[0].code as string,
         libelle: this.product[0].oldLibelle as string,
