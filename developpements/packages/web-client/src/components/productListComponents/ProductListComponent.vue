@@ -100,6 +100,7 @@ export default defineComponent({
       },
     ];
 
+    /// Fetching the 10 first products at first rendering /// 
     async function fetchList () {
       loading.value = true;
       const wd = await refsApiService.getProductList({

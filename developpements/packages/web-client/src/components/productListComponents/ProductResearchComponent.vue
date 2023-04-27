@@ -62,7 +62,6 @@ export default defineComponent({
     },
     resetForm(){
       this.labelLike = ''
-      this.productsList = []
       this.codeStartsWith = ''
     }
   },
