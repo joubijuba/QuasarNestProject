@@ -10,8 +10,8 @@
       style="with: 100%"
       title="Liste des clients"
     >
-      <template v-slot:body="props">
-        <q-tr :props="props">
+      <template v-slot:body="props" >
+        <q-tr :props="props" >
           <q-td
             key="chronoClient"
             :props="props"

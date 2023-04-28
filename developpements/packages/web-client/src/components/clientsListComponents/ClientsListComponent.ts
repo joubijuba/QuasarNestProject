@@ -38,6 +38,15 @@ export default defineComponent({
       this.poppingUp = true;
       this.chronoClient = chronoClient;
     },
+    /// METHODS RELATED TO THE EDIT COMPONENT ///
+    async onFormSubmit(
+      editForm: Omit<SearchCustomerDto, 'codeFichierPartenaire'>,
+    ) {
+      await this.editSubmitter(editForm);
+    },
+    updatePoppingUp() {
+      this.poppingUp = false;
+    },
     async editSubmitter(
       form: Omit<SearchCustomerDto, 'codeFichierPartenaire'>,
     ): Promise<boolean> {
@@ -68,12 +77,6 @@ export default defineComponent({
       }
       alert('Client edited with success');
       return true;
-    },
-    async onFormSubmit(editForm: Omit<SearchCustomerDto, 'codeFichierPartenaire'>) {
-      await this.editSubmitter(editForm)
-    },
-    updatePoppingUp() {
-      this.poppingUp = false;
     },
   },
   setup() {
@@ -138,13 +141,23 @@ export default defineComponent({
         sortable: true,
       },
     ];
+
+    const pagination = ref({
+      sortBy: 'desc',
+      descending: false,
+      page: 1,
+      rowsPerPage: 3,
+      rowsNumber: 10,
+    });
+
     return {
       clientsList,
       poppingUp,
       columns,
+      pagination,
       chronoClient,
       textValidatorToFixed3,
-      formatDate
+      formatDate,
     };
   },
 });

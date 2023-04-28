@@ -180,6 +180,7 @@ export abstract class AbstractApiService {
       // data in the request body / query string. Not very correct
       // but it seems to work to pass the data for the 
       // client delete request
+      
       const resp = await this._axiosInstance.delete<WorkDone<R>>(
         `${this._serviceApiBaseUrl}${serviceUri}`,
         {

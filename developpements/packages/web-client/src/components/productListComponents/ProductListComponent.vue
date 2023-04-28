@@ -126,8 +126,5 @@ export default defineComponent({
       listNeedUpdate
     };
   },
-  watch : {
-
-  }
 });
 </script>

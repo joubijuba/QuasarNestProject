@@ -15,7 +15,6 @@ export default defineComponent({
   methods: {
     async researchHandler() {
       const filters = this.researchForm;
-      console.log(filters.dateDerniereCommandeFrom)
       const wd = await customersApiService.getClientsList(filters);
       if (!wd.isOk) {
         alert('something went wrong');
@@ -95,7 +94,7 @@ export default defineComponent({
         const needle = val.toLowerCase();
         formOptions.value = allFichierPartenaires.value.filter(
           // eslint-disable-next-line @typescript-eslint/no-unsafe-call
-          (v) => v.libelle.toLowerCase().indexOf(needle) > -1,
+          (v) => v.label.toLowerCase().indexOf(needle) > -1,
         );
       });
     }
